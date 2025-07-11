@@ -36,7 +36,6 @@ bcrypt.hash(myPlaintextPassword, saltRounds, (err, hash) => {
         console.log('+ [LOG 2] ', res )
     }
 })
-
 })
 
 
@@ -45,6 +44,13 @@ bcrypt.hash(myPlaintextPassword, saltRounds, (err, hash) => {
 
 //START_SYNC
 
+var salt = bcrypt.genSaltSync(saltRounds)
+var hash = bcrypt.hashSync(myPlaintextPassword, saltRounds)
+if (hash) console.log('+ [LOG] ', hash)
+    else console.log('+ [ERROR] ', 'no hash produced')
+var result = bcrypt.compareSync(myPlaintextPassword, hash)
+if (result) console.log('[LOG] ', 'result: ', result)
+    else console.log('+ [ERROR] ', 'no hash produced')
 
 
 //END_SYNC
