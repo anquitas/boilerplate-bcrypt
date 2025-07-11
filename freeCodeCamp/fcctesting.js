@@ -38,9 +38,11 @@
 const fs = require('fs');
 const cors = require('cors');
 
+
 const allowedOriginsMatcher = /^https?:\/\/([\w-]+\.)*freecodecamp\.org/;
 
 module.exports = function (app) {
+  app.use(cors())
   
   app.use(function (req, res, next) {
       const origin = req.get('origin');
@@ -56,6 +58,7 @@ module.exports = function (app) {
       console.log('requested');
       fs.readFile(process.cwd() + '/server.js', function(err, data) {
         if(err) return next(err);
+        // console.log(data.toString())
         res.send(data.toString());
       });
     });
@@ -65,6 +68,7 @@ module.exports = function (app) {
       console.log('requested');
       fs.readFile(process.cwd() + '/package.json', function(err, data) {
         if(err) return next(err);
+        // console.log(data.toString())
         res.type('txt').send(data.toString());
       });
     });  
